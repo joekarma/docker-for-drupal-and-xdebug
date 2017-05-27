@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run --rm drush/drush --root=/var/www/html --db-url=mysql://drupal:12345@mysql/drupal --uri=http://drupal $@

@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+  drupal:
+    build: ./Docker/drupal-xdebug
+    container_name: drupal.app
+    ports:
+      - "80:80"
+    volumes:
+      - ./code:/var/www/html
+    links:
+      - mysql
+    environment:
+      XDEBUG_CONFIG: "remote_host=10.254.254.254 remote_port=9000" # see https://gist.github.com/ralphschindler/535dc5916ccbd06f53c1b0ee5a868c93
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:5.7
+    container_name: drupal.db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: drupal
+      MYSQL_PASSWORD: 123456
+      MYSQL_DATABASE: drupal
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+
+  drush:
+    image: drush/drush
+    volumes_from: 
+      - drupal
