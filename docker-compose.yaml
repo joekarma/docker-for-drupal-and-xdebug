@@ -3,7 +3,7 @@ version: '2'
 services:
   drupal:
     build: ./Docker/drupal-xdebug
-    container_name: drupal.app
+    container_name: quick-drupal.app
     ports:
       - "80:80"
     volumes:
@@ -17,7 +17,7 @@ services:
 
   mysql:
     image: mysql:5.7
-    container_name: drupal.db
+    container_name: quick-drupal.db
     ports:
       - "3306:3306"
     environment:
@@ -27,8 +27,3 @@ services:
       MYSQL_DATABASE: drupal
     volumes:
       - ./data/mysql:/var/lib/mysql
-
-  drush:
-    image: drush/drush
-    volumes_from: 
-      - drupal
