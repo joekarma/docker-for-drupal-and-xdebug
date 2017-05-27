@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run --rm -i drush/drush --root=/var/www/html --db-url=mysql://quick-drupal.db:12345@mysql/drupal --uri=http://quick-drupal.app $@
+docker run --rm -i --volumes-from=quick-drupal.app drush/drush --root=/var/www/html --db-url=mysql://quick-drupal.db:12345@mysql/drupal --uri=http://quick-drupal.app $@
